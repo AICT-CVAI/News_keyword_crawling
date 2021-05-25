@@ -11,11 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-<<<<<<< HEAD
    <string>crawling machine</string>
-=======
-   <string>반디 소부장 기사 크롤링 도구</string>
->>>>>>> 6455530b043670d83f36b92fd8de3296a3fadecb
   </property>
   <widget class="QPushButton" name="Search">
    <property name="geometry">
