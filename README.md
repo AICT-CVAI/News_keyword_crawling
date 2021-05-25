@@ -1,5 +1,8 @@
 # Keyword Search News Crawling Machine
 
+## Download EXE file
+<a href='https://drive.google.com/file/d/1rzjaLD646fLgKVGpQuXMqZuCbaa6oY9F/view?usp=sharing'>Download Link</a>
+
 ## Requirements
  - PyQt5
  - bs4
