@@ -61,7 +61,7 @@ def naver(keyword,op='None'):
                     link = title_path[i].get('href')
                     date_txt = date_path[i].text
                     date = kortime2engtime(date_txt.split()[0])
-                    df = pd.DataFrame({'title':[title],'abstract':[abstract],'url':[link],'date':[date]})
+                    df = pd.DataFrame({'title':[title],'abstract':[abstract],'url':[link],'date':[date],'engine':['naver']})
                     df_list.append(df)
             if op == 'AND':
                 if all(i in title for i in key_list):
@@ -69,7 +69,7 @@ def naver(keyword,op='None'):
                     link = title_path[i].get('href')
                     date_txt = date_path[i].text
                     date = kortime2engtime(date_txt.split()[0])
-                    df = pd.DataFrame({'title':[title],'abstract':[abstract],'url':[link],'date':[date]})
+                    df = pd.DataFrame({'title':[title],'abstract':[abstract],'url':[link],'date':[date],'engine':['naver']})
                     df_list.append(df)        
 
         current_page = source.find_all('a',{'aria-pressed':'true'})[0].text
@@ -87,13 +87,14 @@ def naver(keyword,op='None'):
         if op == 'AND' or op == 'OR':
             op_searching = searching.replace(',',f' {op} ')
             naver_df.to_excel('''naver_{}_result.xlsx'''.format(op_searching),index=False)
+            
         else:
             naver_df.to_excel('''naver_{}_result.xlsx'''.format(searching),index=False)
-        
         root2 = tk.Tk()
-        msg = messagebox.showinfo(title='Save msg',message='Save!')
+        msg = messagebox.showinfo(title='Save msg',message='Naver Save!')
         if msg == 'ok':
             root2.destroy()
+        return naver_df
     else:
         root3 = tk.Tk()
         msg = messagebox.showerror(title = "Naver No news",message = 'please search other keyword')
@@ -133,12 +134,12 @@ def google(keyword,op='None'):
             if op == 'OR' or op == 'None':
                 if any(i in title for i in key_list):
                     link = base_url + article_list[i].get('href')[1:]
-                    df = pd.DataFrame({'title':[title],'abstract':[np.nan],'url':[link],'date':[date]})
+                    df = pd.DataFrame({'title':[title],'abstract':[np.nan],'url':[link],'date':[date],'engine':['Google']})
                     df_list.append(df)
             if op == 'AND':
                 if all(i in title for i in key_list):
                     link = base_url + article_list[i].get('href')[1:]
-                    df = pd.DataFrame({'title':[title],'abstract':[np.nan],'url':[link],'date':[date]})
+                    df = pd.DataFrame({'title':[title],'abstract':[np.nan],'url':[link],'date':[date],'engine':['Google']})
                     df_list.append(df)
         
         if df_list:
@@ -148,9 +149,10 @@ def google(keyword,op='None'):
             else:
                 google_df.to_excel('''google_{}_result.xlsx'''.format(searching),index=False)
             root2 = tk.Tk()
-            msg = messagebox.showinfo(title='Save msg',message='Save!')
+            msg = messagebox.showinfo(title='Save msg',message='Google Save!')
             if msg == 'ok':
                 root2.destroy()
+            return google_df
         else:
             root3 = tk.Tk()
             msg = messagebox.showerror(title = "Google No news",message = 'please search other keyword')
